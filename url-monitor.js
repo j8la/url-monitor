@@ -1,8 +1,8 @@
 /*
 Name    : url-monitor.js
 Author  : Julien Blanc
-Version : 1.0.0
-Date    : 26/04/2016
+Version : 1.1.0
+Date    : 28/04/2016
 NodeJS  : 5.10.1+ 
 */
 
@@ -66,9 +66,9 @@ urlmon.prototype.testUrl = function(url) {
            agent: false 
         }, (res) => {
             if(res.statusCode === 200 || res.statusCode === 301 || res.statusCode === 302) {
-                self.emit('available', self.message(res.statusCode));
+                self.emit('available', self.message(url, res.statusCode));
             } else {
-                self.emit('unavailable', self.message(res.statusCode));
+                self.emit('unavailable', self.message(url, res.statusCode));
             }
         });
         
@@ -77,7 +77,7 @@ urlmon.prototype.testUrl = function(url) {
         });
         
         req.on('error', function(err) {
-            self.emit('error', {code:null, message:"Host unavailable"});
+            self.emit('error', {code:null, url:url, message:"Host unavailable"});
         })
         
         req.end();
@@ -94,9 +94,9 @@ urlmon.prototype.testUrl = function(url) {
            agent: false  
         }, (res) => {
             if(res.statusCode === 200 || res.statusCode === 301 || res.statusCode === 302) {
-                self.emit('available', self.message(res.statusCode));
+                self.emit('available', self.message(url, res.statusCode));
             } else {
-                self.emit('unavailable', self.message(res.statusCode));
+                self.emit('unavailable', self.message(url, res.statusCode));
             }
         });
         
@@ -105,46 +105,46 @@ urlmon.prototype.testUrl = function(url) {
         });
         
         req.on('error', function(err) {
-            self.emit('error', {code:null,message:"Host unavailable"});
+            self.emit('error', {code:null, url:url, message:"Host unavailable"});
         })
         
         req.end();
         
     } else {
-        self.emit('error', {code:null,message:"Unknown protocol (http & https only)"});
+        self.emit('error', {code:null, url:url, message:"Unknown protocol (http & https only)"});
     }
     
 }
 
 //------ Messages
-urlmon.prototype.message = function(code) {
+urlmon.prototype.message = function(url, code) {
         
         var res = null;
 
         switch(code) {
             case 200:
-                res = {code:code,message:"OK"}
+                res = {code:code, url:url, message:"OK"}
                 break;
             case 301:
-                res = {code:code,message:"OK"}
+                res = {code:code, url:url, message:"OK"}
                 break;
             case 302:
-                res = {code:code,message:"OK"}
+                res = {code:code, url:url, message:"OK"}
                 break;
             case 403:
-                res = {code:code,message:"Access denied"}
+                res = {code:code, url:url, message:"Access denied"}
                 break;
             case 404:
-                res = {code:code,message:"Not found"}
+                res = {code:code, url:url, message:"Not found"}
                 break;
             case 500:
-                res = {code:code,message:"Server error"}
+                res = {code:code, url:url, message:"Server error"}
                 break;
             case 503:
-                res = {code:code,message:"Server error"}
+                res = {code:code, url:url, message:"Server error"}
                 break;
             default:
-                res = {code:code,message:"Unknown error"}
+                res = {code:code, url:url, message:"Unknown error"}
                 break;
         }
         

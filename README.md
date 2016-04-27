@@ -54,14 +54,19 @@ website.start();
 
 ## Responses on events
 ```
-{ code: 200, message: 'OK' }
-{ code: 404, message: 'Not found' }
-{ code: null, message: 'Host unavailable' }
+{ code: 200, url: 'http://my.url/something', message: 'OK' }
+{ code: 404, url: 'http://my.url/something', message: 'Not found' }
+{ code: null, url: 'http://my.url/something', message: 'Host unavailable' }
 ...
 ```
 
 
-## Licence
+# Updates
+- `v1.1.0 :` Adds 'url' in events responses
+- `v1.0.0 :` Initial release
+
+
+# Licence
 The MIT License (MIT) 
 Copyright (c) 2016 Julien Blanc
 
