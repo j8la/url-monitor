@@ -1,8 +1,8 @@
 /*
 Name    : url-monitor.js
 Author  : Julien Blanc
-Version : 1.1.0
-Date    : 28/04/2016
+Version : 1.2.0
+Date    : 29/04/2016
 NodeJS  : 5.10.1+ 
 */
 
@@ -33,17 +33,20 @@ urlmon.prototype.start = function() {
     
     var self = this;
         
-    this.handle = setInterval(function() {
-
+    var timer = function() {
+        
         self.testUrl(self.url);
-          
-    }, this.interval);
+        self.handle = setTimeout(timer, self.interval);
+        
+    }
+    
+    timer();
         
 }
 
 //------ Stops monitor
 urlmon.prototype.stop = function() {
-    clearInterval(this.handle);
+    clearTimeout(this.handle);
     this.handle = null;
 }
 

@@ -62,6 +62,7 @@ website.start();
 
 
 # Updates
+- `v1.2.0 :` Goodbye setInterval, welcome to setTimeout...
 - `v1.1.0 :` Adds 'url' in events responses
 - `v1.0.0 :` Initial release
 
