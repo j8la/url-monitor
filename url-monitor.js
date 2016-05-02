@@ -1,8 +1,8 @@
 /*
 Name    : url-monitor.js
 Author  : Julien Blanc
-Version : 1.2.0
-Date    : 29/04/2016
+Version : 1.3.0
+Date    : 02/05/2016
 NodeJS  : 5.10.1+ 
 */
 
@@ -35,7 +35,7 @@ urlmon.prototype.start = function() {
         
     var timer = function() {
         
-        self.testUrl(self.url);
+        testUrl.call(self, self.url);
         self.handle = setTimeout(timer, self.interval);
         
     }
@@ -51,7 +51,7 @@ urlmon.prototype.stop = function() {
 }
 
 //------ Test url
-urlmon.prototype.testUrl = function(url) {
+function testUrl(url) {
     
     var self = this;
     var obj = urlp.parse(url);
@@ -69,9 +69,9 @@ urlmon.prototype.testUrl = function(url) {
            agent: false 
         }, (res) => {
             if(res.statusCode === 200 || res.statusCode === 301 || res.statusCode === 302) {
-                self.emit('available', self.message(url, res.statusCode));
+                self.emit('available', message.call(this, url, res.statusCode));
             } else {
-                self.emit('unavailable', self.message(url, res.statusCode));
+                self.emit('unavailable', message.call(this, res.statusCode));
             }
         });
         
@@ -97,9 +97,9 @@ urlmon.prototype.testUrl = function(url) {
            agent: false  
         }, (res) => {
             if(res.statusCode === 200 || res.statusCode === 301 || res.statusCode === 302) {
-                self.emit('available', self.message(url, res.statusCode));
+                self.emit('available', message.call(this, url, res.statusCode));
             } else {
-                self.emit('unavailable', self.message(url, res.statusCode));
+                self.emit('unavailable', message.call(this, url, res.statusCode));
             }
         });
         
@@ -120,7 +120,7 @@ urlmon.prototype.testUrl = function(url) {
 }
 
 //------ Messages
-urlmon.prototype.message = function(url, code) {
+function message(url, code) {
         
         var res = null;
 
