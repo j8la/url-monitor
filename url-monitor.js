@@ -1,9 +1,9 @@
 /*
 Name    : url-monitor.js
 Author  : Julien Blanc
-Version : 1.3.1
-Date    : 02/05/2016
-NodeJS  : 5.10.1+ 
+Version : 1.3.2
+Date    : 09/02/2018
+NodeJS  : 5.10.1+ => 8.9.4
 */
 
 //----------------------------------------- LOAD MODULES

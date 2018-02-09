@@ -57,7 +57,7 @@ website.start();
 ```
 
 ## Updates
-- `v1.3.1 :` Avoid self-signed certificate error
+- `v1.3.2 :` Avoid self-signed certificate error
 - `v1.3.0 :` Add privacy to some methods
 - `v1.2.0 :` Goodbye setInterval, welcome to setTimeout...
 - `v1.1.0 :` Adds 'url' in events responses
