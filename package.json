@@ -1,6 +1,6 @@
 {
   "name": "url-monitor",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Simple URL monitoring",
   "main": "url-monitor.js",
   "scripts": {
