@@ -57,6 +57,7 @@ website.start();
 ```
 
 ## Updates
+- `v1.3.3 :` Fix bug in https response with http result code in url field. Improves HTTP messages.
 - `v1.3.2 :` Avoid self-signed certificate error
 - `v1.3.0 :` Add privacy to some methods
 - `v1.2.0 :` Goodbye setInterval, welcome to setTimeout...

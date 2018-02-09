@@ -1,7 +1,7 @@
 /*
 Name    : url-monitor.js
 Author  : Julien Blanc
-Version : 1.3.2
+Version : 1.3.3
 Date    : 09/02/2018
 NodeJS  : 5.10.1+ => 8.9.4
 */
@@ -10,6 +10,7 @@ NodeJS  : 5.10.1+ => 8.9.4
 var event = require('events').EventEmitter;
 var http = require('http');
 var https = require('https');
+var HTTPStatus  = require('http-status');
 var util = require('util');
 var urlp = require('url');
 
@@ -73,7 +74,7 @@ function testUrl(url) {
             if(res.statusCode === 200 || res.statusCode === 301 || res.statusCode === 302) {
                 self.emit('available', message.call(this, url, res.statusCode));
             } else {
-                self.emit('unavailable', message.call(this, res.statusCode));
+                self.emit('unavailable', message.call(this, url, res.statusCode));
             }
         });
         
@@ -126,31 +127,18 @@ function message(url, code) {
         
         var res = null;
 
-        switch(code) {
-            case 200:
-                res = {code:code, url:url, message:"OK"}
-                break;
-            case 301:
-                res = {code:code, url:url, message:"OK"}
-                break;
-            case 302:
-                res = {code:code, url:url, message:"OK"}
-                break;
-            case 403:
-                res = {code:code, url:url, message:"Access denied"}
-                break;
-            case 404:
-                res = {code:code, url:url, message:"Not found"}
-                break;
-            case 500:
-                res = {code:code, url:url, message:"Server error"}
-                break;
-            case 503:
-                res = {code:code, url:url, message:"Server error"}
-                break;
-            default:
-                res = {code:code, url:url, message:"Unknown error"}
-                break;
+        if(code != null) {
+            res = {
+                code: code, 
+                url: url,
+                message: HTTPStatus[code]
+            }
+        } else {
+            res = {
+                code: null, 
+                url: url, 
+                message: "Unknown error"
+            }
         }
         
         return res;
