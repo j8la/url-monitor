@@ -64,5 +64,5 @@ website.start();
 
 ## Licence
 The MIT License (MIT) 
-Copyright (c) 2016 Julien Blanc
+Copyright (c) 2016-2018 Julien Blanc
 

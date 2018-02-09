@@ -1,7 +1,7 @@
 /*
 Name    : url-monitor.js
 Author  : Julien Blanc
-Version : 1.3.0
+Version : 1.3.1
 Date    : 02/05/2016
 NodeJS  : 5.10.1+ 
 */
@@ -60,6 +60,8 @@ function testUrl(url) {
     if(obj.protocol == 'https:') {
         
         if(obj.port == null) { obj.port = '443'; }
+
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; // Ignore self-signed certificate error
         
         req = https.request({
            host: obj.hostname,
